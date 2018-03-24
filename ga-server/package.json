@@ -7,15 +7,16 @@
 	"description": "What am I about?",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js"
+		"start": "nodemon server.js"
 	},
 	"dependencies": {
-		"express": "^4.14.0",
 		"actions-on-google": "^1.0.4",
 		"body-parser": "^1.15.2",
-		"request": "^2.79.0",
+		"dotenv": "^5.0.1",
 		"es6-map": "^0.1.4",
+		"express": "^4.14.0",
 		"prettyjson": "^1.2.1",
+		"request": "^2.79.0",
 		"underscore.string": "^3.3.4"
 	},
 	"engines": {

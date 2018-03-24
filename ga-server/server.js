@@ -1,29 +1,18 @@
-// server.js
-// where your node app starts
-
-// init project
+require('dotenv').config();
 const express = require('express');
-const ApiAiAssistant = require('actions-on-google').ApiAiAssistant;
 const bodyParser = require('body-parser');
-const request = require('request');
 const app = express();
-const Map = require('es6-map');
+const GAActionHandler = require('./src/actions')
+const logObject = require('./src/utils/logObject');
 
-// Pretty JSON output for logs
-const prettyjson = require('prettyjson');
 // Join an array of strings into a sentence
 // https://github.com/epeli/underscore.string#tosentencearray-delimiter-lastdelimiter--string
 const toSentence = require('underscore.string/toSentence');
 
 app.use(bodyParser.json({type: 'application/json'}));
 
-// This boilerplate uses Express, but feel free to use whatever libs or frameworks
-// you'd like through `package.json`.
-
-// http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
-// http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
@@ -47,54 +36,11 @@ app.get("/", function (request, response) {
 
 // Handle webhook requests
 app.post('/', function(req, res, next) {
-  // Log the request headers and body, to aide in debugging. You'll be able to view the
-  // webhook requests coming from API.AI by clicking the Logs button the sidebar.
   logObject('Request headers: ', req.headers);
   logObject('Request body: ', req.body);
-    
+  GAActionHandler({request: req, response: res})
   // Instantiate a new API.AI assistant object.
-  const assistant = new ApiAiAssistant({request: req, response: res});
-
-  // Declare constants for your action and parameter names
-  const ASK_WEATHER_ACTION = 'input.unknown';  // The action name from the API.AI intent
-  const CITY_PARAMETER = 'geo-city'; // An API.ai parameter name
-
-  // Create functions to handle intents here
-  function getWeather(assistant) {
-    console.log('Handling action: ' + ASK_WEATHER_ACTION);
-    //let city = assistant.getArgument(CITY_PARAMETER);
-    let city = "Blagoevgrad";
-    // Make an API call to fetch the current weather in the requested city.
-    // See https://developer.yahoo.com/weather/
-    let weatherRequestURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast" +
-        "%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22" +
-        encodeURIComponent(city) +
-        "%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
-    
-    request(weatherRequestURL, function(error, response) {
-      if(error) {
-        next(error);
-      } else {        
-        let body = JSON.parse(response.body);
-        logObject('Weather API call response: ', body);
-        
-        let units = body.query.results.channel.units.temperature == 'F' ? 'Fahrenheit' : 'Celsius';
-        let temperature = body.query.results.channel.item.condition.temp;
-        
-        // Respond to the user with the current temperature.
-        assistant.tell('The current temperature in ' + city + ' is ' + temperature + ' degrees ' + units);
-      }
-    });
-  }
-  
-  // Add handler functions to the action router.
-  let actionRouter = new Map();
-  
-  // The ASK_WEATHER_INTENT (askWeather) should map to the getWeather method.
-  actionRouter.set(ASK_WEATHER_ACTION, getWeather);
-  
   // Route requests to the proper handler functions via the action router.
-  assistant.handleRequest(actionRouter);
 });
 
 // Handle errors.
@@ -102,12 +48,6 @@ app.use(function (err, req, res, next) {
   console.error(err.stack)
   res.status(500).send('Something broke!')
 })
-
-// Pretty print objects for logging.
-function logObject(message, object, options) {
-  console.log(message);
-  console.log(prettyjson.render(object, options));
-}
 
 // Listen for requests.
 let server = app.listen(process.env.PORT, function () {
