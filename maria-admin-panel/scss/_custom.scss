@@ -1,0 +1,115 @@
+// Here you can add other styles
+@-webkit-keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+iframe {
+    height: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+.main {
+    background-color: white;
+}
+
+.blue {
+    background-color: white;
+    color: #19003b
+}
+
+.card-header {
+    color: white!important;
+    background-color: #19003b;
+    border: none;
+}
+.text {
+    color: #19003b;
+    font-size: 18px;
+}
+.add-file {
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    background-color: #19003b;
+    padding: 2px 10px;
+    outline: none;
+    border: none;
+    color: white;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(102, 102, 102, 1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(102, 102, 102, 1);
+    box-shadow: 0px 0px 5px 0px rgba(102, 102, 102, 1);
+    &.btn{
+        width: auto;
+        height: auto;
+        margin-left: 16px;
+    }
+    span {
+        position: relative;
+        bottom: 2px;
+    }
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}
+
+.float {
+    flex-direction: column;
+}
+
+.aside-right {
+    position: fixed;
+    right: 0;
+    top: -30px;
+    bottom: 0;
+}
+
+.app-footer {
+    display: none;
+}
+
+.text {
+    text-align: center;
+}
+
+.import-files {
+    margin: 0 auto;
+    cursor: pointer;
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    .input-text {
+        border: none;
+        background-color: white;
+        border-bottom: 1px solid #19003b;
+        padding: 10px;
+        display: block;
+        margin-bottom: 10px;
+        margin-left: 16px;
+        width: 100%;
+        &.textarr{
+            margin-bottom: 20px;
+        }
+        &:focus {
+            outline: none;
+            border: none;
+            border-bottom: 1px solid #009dd1;
+        }
+    }
+}
+
