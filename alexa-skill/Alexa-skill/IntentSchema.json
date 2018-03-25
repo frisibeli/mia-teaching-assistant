@@ -1,0 +1,28 @@
+{
+  "intents": [
+    {
+      "intent": "ReadLecture",
+      "slots": [
+        {
+          "name": "topicslot",
+          "type": "TOPIC"
+        }
+      ]
+    },
+    {
+      "intent": "AskingQuestion",
+      "slots": [
+        {
+          "name": "whquestionslot",
+          "type": "WHQUESTION"
+        }
+      ]
+    },
+    {
+      "intent": "ReadLastLecture"
+    },
+    {
+      "intent": "DefaultWelcomeIntent"
+    }
+  ]
+}

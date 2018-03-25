@@ -1,9 +1,11 @@
 require('dotenv').config();
 const express = require('express');
+const axios = require('axios').default;
 const bodyParser = require('body-parser');
 const app = express();
 const GAActionHandler = require('./src/actions')
 const logObject = require('./src/utils/logObject');
+const ES_URL = "https://search-maria-brain-es-pc5buofzzy44zw77cjn5yjz4ae.eu-central-1.es.amazonaws.com";
 
 // Join an array of strings into a sentence
 // https://github.com/epeli/underscore.string#tosentencearray-delimiter-lastdelimiter--string
@@ -33,7 +35,24 @@ app.get("/", function (request, response) {
     res.status(400).send('Invalid request');
   }
 });*/
-
+app.get('/document', (req, res, next) => {
+  axios.get(`${ES_URL}/documents/_doc/_search`).then(response => {
+    res.json(response.data.hits.hits.map(hit => hit._source));
+  })
+})
+app.post('/document', (req, res, next) => {
+  const {body} = req;
+  if("title" in body && "content" in body && "topic" in body){
+    axios.post(`${ES_URL}/documents/_doc`, Object.assign({}, body, {type:"full_document"}))
+    .then(response => {
+      res.status(201).json({success:true});
+    }).catch(error => {
+      res.status(400).json({success:fail, error});
+    })
+  }else{
+    res.status(400).json({success:false, error:"Provide title, content and topic"});
+  }
+})
 // Handle webhook requests
 app.post('/', function(req, res, next) {
   logObject('Request headers: ', req.headers);

@@ -11,6 +11,7 @@ let actionRouter = new Map();
 // The ASK_WEATHER_INTENT (askWeather) should map to the getWeather method.
 let router = GARequest => {
     const assistant = new ApiAiAssistant(GARequest);
+    //assistant.askForSignIn()
     
     actionRouter.set(inputUnknown.actionName, inputUnknown.callback(assistant));
     actionRouter.set(inputWelcome.actionName, inputWelcome.callback(assistant));
