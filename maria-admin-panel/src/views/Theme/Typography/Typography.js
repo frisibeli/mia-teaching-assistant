@@ -13,8 +13,6 @@ import {
 import axios from 'axios'
 import { API_URL } from '../../../constants';
 
-
-
 class Typography extends Component {
 
   constructor(props) {
@@ -22,7 +20,7 @@ class Typography extends Component {
     this.state = {
       title: "",
       content: "",
-      topic: "",
+      topic: "history",
       success: false
     }
   }
