@@ -62,8 +62,8 @@ class Full extends Component {
             <Container fluid>
               <Switch>
                 <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
-                <Route path="/theme/colors" name="Colors" component={Colors}/>
-                <Route path="/theme/typography" name="Typography" component={Typography}/>
+                <Route path="/progress" name="Colors" component={Colors}/>
+                <Route path="/teach-me" name="Typography" component={Typography}/>
                 <Route path="/base/cards" name="Cards" component={Cards}/>
                 <Route path="/base/forms" name="Forms" component={Forms}/>
                 <Route path="/base/switches" name="Swithces" component={Switches}/>
@@ -90,10 +90,10 @@ class Full extends Component {
                 <Route path="/icons/simple-line-icons" name="Simple Line Icons" component={SimpleLineIcons}/>
                 <Route path="/notifications/alerts" name="Alerts" component={Alerts}/>
                 <Route path="/notifications/badges" name="Badges" component={Badges}/>
-                <Route path="/notifications/modals" name="Modals" component={Modals}/>
+                <Route path="/home" name="Modals" component={Modals}/>
                 <Route path="/widgets" name="Widgets" component={Widgets}/>
                 <Route path="/charts" name="Charts" component={Charts}/>
-                <Redirect from="/" to="/dashboard"/>
+                <Redirect from="/" to="/home"/>
               </Switch>
             </Container>
           </main>

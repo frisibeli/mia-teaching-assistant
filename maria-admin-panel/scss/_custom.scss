@@ -154,6 +154,10 @@ textarea{
     }
 }
 
+.sucess-story{
+    text-align: center;
+}
+
 .fa {
     &.fa-edit {
         color: white;
@@ -173,6 +177,12 @@ textarea{
     color: #19003b;
     margin-left: 16px;
     font-size: 20px;
+}
+
+.elipse{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 @media(max-width: 991.98px) {

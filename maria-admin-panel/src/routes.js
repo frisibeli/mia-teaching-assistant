@@ -23,7 +23,7 @@ const routes = {
   '/buttons/button-dropdowns': 'Button Dropdowns',
   '/buttons/button-groups': 'Button Groups',
   '/charts': 'Charts',
-  '/dashboard': 'Dashboard',
+  '/home': 'Dashboard',
   '/icons': 'Icons',
   '/icons/flags': 'Flags',
   '/icons/font-awesome': 'Font Awesome',
@@ -33,8 +33,8 @@ const routes = {
   '/notifications/badges': 'Badges',
   '/notifications/modals': 'Modals',
   '/theme': 'Theme',
-  '/theme/colors': 'Colors',
-  '/theme/typography': 'Typography',
+  '/progress': 'Colors',
+  '/teach-me': 'Typography',
   '/widgets': 'Widgets'
 };
 export default routes;
