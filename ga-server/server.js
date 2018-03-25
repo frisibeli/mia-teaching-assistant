@@ -20,22 +20,6 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-// Uncomment the below function to check the authenticity of the API.AI requests.
-// See https://docs.api.ai/docs/webhook#section-authentication
-/*app.post('/', function(req, res, next) {
-  // Instantiate a new API.AI assistant object.
-  const assistant = new ApiAiAssistant({request: req, response: res});
-  
-  // Throw an error if the request is not valid.
-  if(assistant.isRequestFromApiAi(process.env.API_AI_SECRET_HEADER_KEY, 
-                                  process.env.API_AI_SECRET_HEADER_VALUE)) {
-    next();
-  } else {
-    console.log('Request failed validation - req.headers:', JSON.stringify(req.headers, null, 2));
-    
-    res.status(400).send('Invalid request');
-  }
-});*/
 app.get('/document', (req, res, next) => {
   axios.get(`${ES_URL}/documents/_doc/_search`).then(response => {
     res.json(response.data.hits.hits.map(hit => hit._source));
