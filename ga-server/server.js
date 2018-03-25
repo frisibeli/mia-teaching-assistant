@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios').default;
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 const GAActionHandler = require('./src/actions')
@@ -12,7 +13,7 @@ const ES_URL = "https://search-maria-brain-es-pc5buofzzy44zw77cjn5yjz4ae.eu-cent
 const toSentence = require('underscore.string/toSentence');
 
 app.use(bodyParser.json({type: 'application/json'}));
-
+app.use(cors());
 app.use(express.static('public'));
 
 app.get("/", function (request, response) {
