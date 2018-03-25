@@ -1,20 +1,21 @@
 // Here you can add other styles
 @-webkit-keyframes fade-in {
     0% {
-      opacity: 0;
+        opacity: 0;
     }
     100% {
-      opacity: 1;
+        opacity: 1;
     }
-  }
-  @keyframes fade-in {
+}
+
+@keyframes fade-in {
     0% {
-      opacity: 0;
+        opacity: 0;
     }
     100% {
-      opacity: 1;
+        opacity: 1;
     }
-  }
+}
 
 iframe {
     height: 100%;
@@ -38,10 +39,12 @@ iframe {
     background-color: #19003b;
     border: none;
 }
+
 .text {
     color: #19003b;
     font-size: 18px;
 }
+
 .add-file {
     border-radius: 50px;
     width: 30px;
@@ -54,7 +57,13 @@ iframe {
     -webkit-box-shadow: 0px 0px 5px 0px rgba(102, 102, 102, 1);
     -moz-box-shadow: 0px 0px 5px 0px rgba(102, 102, 102, 1);
     box-shadow: 0px 0px 5px 0px rgba(102, 102, 102, 1);
-    &.btn{
+    &.delete {
+        background-color: #d11f5d;
+    }
+    &.edit {
+        margin-right: 10px;
+    }
+    &.btn {
         width: auto;
         height: auto;
         margin-left: 16px;
@@ -73,11 +82,19 @@ iframe {
     flex-direction: column;
 }
 
+.inline {
+    display: inline-block;
+}
+
 .aside-right {
     position: fixed;
     right: 0;
     top: -30px;
     bottom: 0;
+}
+
+.main-topic {
+    background-color: #d11f5d;
 }
 
 .app-footer {
@@ -102,7 +119,7 @@ iframe {
         margin-bottom: 10px;
         margin-left: 16px;
         width: 100%;
-        &.textarr{
+        &.textarr {
             margin-bottom: 20px;
         }
         &:focus {
@@ -112,4 +129,62 @@ iframe {
         }
     }
 }
+textarea{
+    height: 200px;
+}
 
+.d-md-down-none{
+    &:focus{
+        outline: none;
+        cursor: pointer;
+    }
+}
+.topics {
+    margin-left: 16px;
+    .topic-select {
+        // -webkit-appearance: none;
+        background-color: white;
+        color: #19003b;
+        border: 1px solid #19003b;
+        padding: 0 10px;
+        margin-bottom: 10px;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.fa {
+    &.fa-edit {
+        color: white;
+        position: relative;
+        right: 1px;
+        bottom: 1px;
+    }
+    &.fa-minus-circle {
+        color: white;
+        position: relative;
+        right: 1px;
+        bottom: 1px;
+    }
+}
+
+.grad {
+    color: #19003b;
+    margin-left: 16px;
+    font-size: 20px;
+}
+
+@media(max-width: 991.98px) {
+    .import-files {
+        .input-text {
+            margin-left: auto;
+        }
+    }
+    .topics {
+        margin-left: auto;
+    }
+    .aside-right{
+        display: none;
+    }
+}
