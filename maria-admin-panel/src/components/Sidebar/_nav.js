@@ -18,16 +18,17 @@ export default {
     //   },
     //   class: ''             // optional class names space delimited list for title item ex: "text-center"
     // },
-    // {
-    //   name: 'Gain more knowledge',
-    //   url: '/theme/colors',
-    //   // icon: 'icon-drop',
-    // },
+    
     {
       name: 'Teach Maria',
-      url: '/theme/typography',
+      url: '/teach-me',
       // icon: 'icon-pencil',
-    }
+    },
+    {
+      name: 'Progress',
+      url: '/progress',
+      // icon: 'icon-drop',
+    },
     // {
     //   title: true,
     //   name: 'Components',

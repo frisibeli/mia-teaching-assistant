@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
+import axios from 'axios'
+import { API_URL } from '../../../constants';
 import {
   Badge,
   Row,
@@ -33,36 +35,42 @@ const brandDanger = '#f86c6b';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-
-    this.onEntering = this.onEntering.bind(this);
-    this.onEntered = this.onEntered.bind(this);
-    this.onExiting = this.onExiting.bind(this);
-    this.onExited = this.onExited.bind(this);
     this.toggle = this.toggle.bind(this);
-    this.toggleFade = this.toggleFade.bind(this);
     this.state = {
-      collapse: false,
-      status: 'Closed',
+      collapse: true,
       fadeIn: true,
-      timeout: 300
+      timeout: 300,
+      docs: [],
+      loading: false
     };
   }
 
-  onEntering() {
-    this.setState({ status: 'Opening...' });
+  componentDidMount() {
+    this.fetchDocs();
   }
 
-  onEntered() {
-    this.setState({ status: 'Opened' });
+  fetchDocs() {
+    this.setState({ loading: true })
+    return axios.get(`${API_URL}/document`).then((response) => {
+
+      let responseDictionary = {};
+      response.data.forEach(doc => {
+        if (doc.topic in responseDictionary) {
+          responseDictionary[doc.topic].push(doc);
+        } else {
+          if (doc.topic) {
+            responseDictionary[doc.topic] = [];
+            responseDictionary[doc.topic].push(doc)
+          }
+        }
+        setTimeout(() => {
+          this.setState({ loading: false })
+        }, 2000);
+      });
+      this.setState({ docs: responseDictionary });
+    })
   }
 
-  onExiting() {
-    this.setState({ status: 'Closing...' });
-  }
-
-  onExited() {
-    this.setState({ status: 'Closed' });
-  }
 
   toggle() {
     this.setState({ collapse: !this.state.collapse });
@@ -72,87 +80,57 @@ class Dashboard extends Component {
     this.setState({ fadeIn: !this.state.fadeIn });
   }
 
+
   render() {
     return (
-      <div className="animated fadeIn">
-        <Row className="float">
-          <h1 className="grad">Subjects</h1>
-          <Col xs="12" sm="12" md="8">
-            <Card>
-              <CardHeader className="main-topic" onClick={this.toggle} style={{ marginBottom: '1rem' }}>
-                <i className="fa fa-align-left"></i><strong>History</strong>
-              </CardHeader>
-              <Collapse
-                isOpen={this.state.collapse}
-                onEntering={this.onEntering}
-                onEntered={this.onEntered}
-                onExiting={this.onExiting}
-                onExited={this.onExited}
-              >
-                <CardBody>
-                  <Col className="inline" xs="12" sm="4" md="4">
-                    <Card>
-                      <CardHeader>
-                        <strong>Lecture1</strong>
-                      </CardHeader>
+      this.state.loading
+        ? <div class="boxLoading" />
+
+        : <div className="animated fadeIn">
+          <Row className="float">
+            <h1 className="grad">Subjects</h1>
+            {
+              Object.keys(this.state.docs).map((topic, i) => {
+                return <Col key={i} xs="12" sm="12" md="8">
+                  <Card>
+                    <CardHeader className="main-topic" onClick={this.toggle} style={{ marginBottom: '1rem' }}>
+                      <i className="fa fa-align-left"></i><strong>{topic}</strong>
+                    </CardHeader>
+                    <Collapse
+                      isOpen={this.state.collapse}
+                    >
                       <CardBody>
-                        <p>
-                          History lectures from my first History class.
-                         </p>
-                        <button className="add-file edit"><i className="fa fa-edit"></i></button>
-                        <button className="add-file delete"><i className="fa fa-minus-circle"></i></button>
-                      </CardBody>
-                    </Card>
-                  </Col>
+                        {
+                          this.state.docs[topic].map((doc, i) => {
+                            return <Col key={i} className="inline" xs="12" sm="4" md="4">
+                              <Card>
+                                <CardHeader>
+                                  <strong>{doc.title}</strong>
+                                </CardHeader>
+                                <CardBody>
+                                  <p className="elipse">
+                                    {doc.content}
+                                  </p>
+                                  <button className="add-file edit"><i className="fa fa-edit"></i></button>
+                                  <button className="add-file delete"><i className="fa fa-minus-circle"></i></button>
+                                </CardBody>
+                              </Card>
+                            </Col>
+                          })
+                        }
+                      </CardBody></Collapse></Card>
+                </Col>
+              })
+            }
+          </Row>
 
-                  <Col className="inline" xs="12" sm="4" md="4">
-                    <Card>
-                      <CardHeader>
-                        <strong>Lecture2</strong>
-                      </CardHeader>
-                      <CardBody>
-                        <p>
-                          History lectures from my first History class.
-                         </p>
-                        <button className="add-file edit"><i className="fa fa-edit"></i></button>
-                        <button className="add-file delete"><i className="fa fa-minus-circle"></i></button>
-                      </CardBody>
-                    </Card>
-                  </Col>
+          <div className="aside-right">
+            <iframe width="350" height="430"
+              src="https://console.dialogflow.com/api-client/demo/embedded/e20cf5c1-941d-4d11-a3a8-d594a04bed81">
+            </iframe>
+          </div>
 
-                  <Col  className="inline" xs="12" sm="4" md="4">
-                    <Card>
-                      <CardHeader>
-                        <strong>Lecture3</strong>
-                      </CardHeader>
-                      <CardBody>
-                        <p>
-                          History lectures from my first History class.
-                         </p>
-                        <button className="add-file edit"><i className="fa fa-edit"></i></button>
-                        <button className="add-file delete"><i className="fa fa-minus-circle"></i></button>
-                      </CardBody>
-                    </Card>
-                  </Col>
-                </CardBody>
-              </Collapse>
-            </Card>
-
-          </Col>
-        </Row>
-
-        {/* <Col md="12">
-          <p className="blue-text">Gain more knowledge by uploading a new file.</p>
-          <button className="add-file"><span>+</span></button>
-        </Col> */}
-
-        <div className="aside-right">
-          <iframe width="350" height="430"
-            src="https://console.dialogflow.com/api-client/demo/embedded/e20cf5c1-941d-4d11-a3a8-d594a04bed81">
-          </iframe>
         </div>
-
-      </div>
     )
   }
 }
