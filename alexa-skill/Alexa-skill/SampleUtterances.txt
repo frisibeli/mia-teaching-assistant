@@ -1,0 +1,11 @@
+ReadLecture	read me a {topicslot} lecture
+ReadLecture	read me {topicslot} lecture
+ReadLecture	teach me {topicslot}
+AskingQuestion	{whquestionslot}
+ReadLastLecture	ask maria to continue from the last time
+ReadLastLecture	continue from the last time
+ReadLastLecture	continue last lecture
+ReadLastLecture	read me the last lecture
+DefaultWelcomeIntent	hello
+DefaultWelcomeIntent	learn with maria
+DefaultWelcomeIntent	teach with mia
