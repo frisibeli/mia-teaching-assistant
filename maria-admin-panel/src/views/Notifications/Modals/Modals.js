@@ -20,7 +20,8 @@ import {
   ButtonDropdown,
   Label,
   Input,
-  Table
+  Table,
+  Collapse
 } from 'reactstrap';
 
 const brandPrimary = '#20a8d8';
@@ -33,73 +34,117 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
 
+    this.onEntering = this.onEntering.bind(this);
+    this.onEntered = this.onEntered.bind(this);
+    this.onExiting = this.onExiting.bind(this);
+    this.onExited = this.onExited.bind(this);
     this.toggle = this.toggle.bind(this);
-    this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-
+    this.toggleFade = this.toggleFade.bind(this);
     this.state = {
-      dropdownOpen: false,
-      radioSelected: 2,
-      openTextarea: false
+      collapse: false,
+      status: 'Closed',
+      fadeIn: true,
+      timeout: 300
     };
   }
 
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
+  onEntering() {
+    this.setState({ status: 'Opening...' });
   }
 
-  onRadioBtnClick(radioSelected) {
-    this.setState({
-      radioSelected: radioSelected
-    });
+  onEntered() {
+    this.setState({ status: 'Opened' });
+  }
+
+  onExiting() {
+    this.setState({ status: 'Closing...' });
+  }
+
+  onExited() {
+    this.setState({ status: 'Closed' });
+  }
+
+  toggle() {
+    this.setState({ collapse: !this.state.collapse });
+  }
+
+  toggleFade() {
+    this.setState({ fadeIn: !this.state.fadeIn });
   }
 
   render() {
-
     return (
       <div className="animated fadeIn">
-
         <Row className="float">
-          {/* <Col> */}
-          <Col xs="12" sm="6" md="6">
-            <Card className="blue">
-              <CardHeader>
-                History
+          <h1 className="grad">Subjects</h1>
+          <Col xs="12" sm="12" md="8">
+            <Card>
+              <CardHeader className="main-topic" onClick={this.toggle} style={{ marginBottom: '1rem' }}>
+                <i className="fa fa-align-left"></i><strong>History</strong>
               </CardHeader>
-              <CardBody>
-                History lectures from my first History class.
-              </CardBody>
-            </Card>
-          </Col>
+              <Collapse
+                isOpen={this.state.collapse}
+                onEntering={this.onEntering}
+                onEntered={this.onEntered}
+                onExiting={this.onExiting}
+                onExited={this.onExited}
+              >
+                <CardBody>
+                  <Col className="inline" xs="12" sm="4" md="4">
+                    <Card>
+                      <CardHeader>
+                        <strong>Lecture1</strong>
+                      </CardHeader>
+                      <CardBody>
+                        <p>
+                          History lectures from my first History class.
+                         </p>
+                        <button className="add-file edit"><i className="fa fa-edit"></i></button>
+                        <button className="add-file delete"><i className="fa fa-minus-circle"></i></button>
+                      </CardBody>
+                    </Card>
+                  </Col>
 
-          <Col xs="12" sm="6" md="6">
-            <Card className=" blue">
-              <CardHeader>
-                Geography
-              </CardHeader>
-              <CardBody>
-                My Geography book.
-              </CardBody>
-            </Card>
-          </Col>
+                  <Col className="inline" xs="12" sm="4" md="4">
+                    <Card>
+                      <CardHeader>
+                        <strong>Lecture2</strong>
+                      </CardHeader>
+                      <CardBody>
+                        <p>
+                          History lectures from my first History class.
+                         </p>
+                        <button className="add-file edit"><i className="fa fa-edit"></i></button>
+                        <button className="add-file delete"><i className="fa fa-minus-circle"></i></button>
+                      </CardBody>
+                    </Card>
+                  </Col>
 
-          <Col xs="12" sm="6" md="6">
-            <Card className="blue">
-              <CardHeader>
-                English
-              </CardHeader>
-              <CardBody>
-                My English classes.
-              </CardBody>
+                  <Col  className="inline" xs="12" sm="4" md="4">
+                    <Card>
+                      <CardHeader>
+                        <strong>Lecture3</strong>
+                      </CardHeader>
+                      <CardBody>
+                        <p>
+                          History lectures from my first History class.
+                         </p>
+                        <button className="add-file edit"><i className="fa fa-edit"></i></button>
+                        <button className="add-file delete"><i className="fa fa-minus-circle"></i></button>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                </CardBody>
+              </Collapse>
             </Card>
+
           </Col>
         </Row>
 
-        <Col md="12">
+        {/* <Col md="12">
           <p className="blue-text">Gain more knowledge by uploading a new file.</p>
           <button className="add-file"><span>+</span></button>
-        </Col>
+        </Col> */}
 
         <div className="aside-right">
           <iframe width="350" height="430"

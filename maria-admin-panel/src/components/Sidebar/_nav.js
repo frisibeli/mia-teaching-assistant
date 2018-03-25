@@ -1,7 +1,7 @@
 export default {
   items: [
     {
-      name: 'Your projects',
+      name: 'Dashboard',
       url: '/notifications/modals',
       // icon: 'icon-speedometer',
       // badge: {
@@ -18,13 +18,13 @@ export default {
     //   },
     //   class: ''             // optional class names space delimited list for title item ex: "text-center"
     // },
+    // {
+    //   name: 'Gain more knowledge',
+    //   url: '/theme/colors',
+    //   // icon: 'icon-drop',
+    // },
     {
-      name: 'Gain more knowledge',
-      url: '/theme/colors',
-      // icon: 'icon-drop',
-    },
-    {
-      name: 'Talk to Maria',
+      name: 'Teach Maria',
       url: '/theme/typography',
       // icon: 'icon-pencil',
     }
